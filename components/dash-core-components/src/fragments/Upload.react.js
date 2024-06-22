@@ -17,31 +17,20 @@ export default class Upload extends Component {
             last_modified: [],
         };
         files.forEach(file => {
-            const reader = new FileReader();
-            reader.onload = () => {
-                /*
-                 * I'm not sure if reader.onload will be executed in order.
-                 * For example, if the 1st file is larger than the 2nd one,
-                 * the 2nd file might load first.
-                 */
-                newProps.contents.push(reader.result);
-                newProps.filename.push(file.name);
-                // eslint-disable-next-line no-magic-numbers
-                newProps.last_modified.push(file.lastModified / 1000);
-                if (newProps.contents.length === files.length) {
-                    if (multiple) {
-                        setProps(newProps);
-                    } else {
-                        setProps({
-                            contents: newProps.contents[0],
-                            filename: newProps.filename[0],
-                            last_modified: newProps.last_modified[0],
-                        });
-                    }
-                }
-            };
-            reader.readAsDataURL(file);
+            newProps.contents.push(null);
+            newProps.filename.push(file.name);
+            newProps.last_modified.push(file.lastModified / 1000);
+            
         });
+        // if (multiple) {
+        //     setProps(newProps);
+        // } else {
+        //     setProps({
+        //         contents: null,  // Not reading contents
+        //         filename: newProps.filename[0],
+        //         last_modified: newProps.last_modified[0],
+        //     });
+        // }
     }
 
     render() {
