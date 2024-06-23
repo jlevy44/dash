@@ -22,6 +22,8 @@ export default class Upload extends Component {
             newProps.last_modified.push(file.lastModified / 1000);
             
         });
+        setProps(newProps);
+        console.log("Custom Input component is being rendered"); // Add this line
         // if (multiple) {
         //     setProps(newProps);
         // } else {
